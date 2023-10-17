@@ -42,7 +42,7 @@
       class="hero w-100 h-100 p-3 mx-auto text-center d-flex justify-content-center align-items-center"
     >
       <main>
-        <h4>Kepada Bapak/Ibu/Saudara/i,</h4>
+        <h4>Kepada <span>Bapak/Ibu/Saudara/i, </span></h4>
         <h1>Fadhil & Indah</h1>
         <p>Akan melakukan resepsi pernikahan dalam:</p>
         <div class="simply-countdown"></div>
@@ -186,6 +186,15 @@
               Jl. Anggaran No.90, RT.004/RW.003, Karang Tengah, Kec. Karang
               Tengah, Kota Tangerang, Banten 15157
             </p>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.5829111889177!2d106.71031099999999!3d-6.219924599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f9f7ea42194f%3A0x71b1644441270b12!2sJl.%20Anggaran%20No.3%2C%20RT.004%2FRW.003%2C%20Karang%20Tim.%2C%20Kec.%20Karang%20Tengah%2C%20Kota%20Tangerang%2C%20Banten%2015157!5e0!3m2!1sid!2sid!4v1697585463837!5m2!1sid!2sid"
+              width="100%"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
             <a
               href="https://goo.gl/maps/zryGFnLjrqx45AGy5"
               target="_blank"
@@ -519,6 +528,36 @@
             <button class="btn btn-primary">Kirim</button>
           </div>
         </form>
+        <div class="row mt-5 justify-content-center">
+          <div class="col-md-6">
+            <div id="disqus_thread"></div>
+            <script>
+              /**
+               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+              /*
+                var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+              */
+              (function () {
+                // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                  s = d.createElement("script");
+                s.src = "https://my-wedding-2lvi50l3ar.disqus.com/embed.js";
+                s.setAttribute("data-timestamp", +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript
+              >Please enable JavaScript to view the
+              <a href="https://disqus.com/?ref_noscript"
+                >comments powered by Disqus.</a
+              ></noscript
+            >
+          </div>
+        </div>
       </div>
     </section>
 
@@ -611,7 +650,8 @@
       </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- ## SCRIPT ## -->
+
     <!-- Bootstrap script -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -740,6 +780,18 @@
             });
         });
       });
+    </script>
+
+    <!-- Query URL untuk nama undangan -->
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const nama = urlParams.get("n") || "";
+      const pronounce = urlParams.get("p") || "Bapak/Ibu/Saudara/i";
+
+      const namaContainer = document.querySelector(".hero h4 span");
+      namaContainer.innerText = `${pronounce} ${nama},`.replace(/ ,$/, ",");
+
+      document.querySelector("#nama").value = nama;
     </script>
   </body>
 </html>
