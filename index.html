@@ -119,10 +119,10 @@
               <div class="col-8 text-end">
                 <h3>Fadhil Muhammad Agast</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                  dolor voluptates eum. Ipsa, tempora saepe. Incidunt, autem?
-                  Veritatis dolor nisi eum, repudiandae omnis asperiores.
-                  Aperiam et excepturi laudantium illum iusto.
+                  yang dikenal dengan kepribadian hangat dan kecerdasannya yang
+                  luar biasa. Dia tumbuh menjadi pemuda yang ambisius dan
+                  berbakat dalam berbagai bidang. Semoga dia terus berprestasi
+                  dan menjadi kebanggaan keluarganya.
                 </p>
                 <p>
                   Putra dari Bpk. Nasad <br />
@@ -158,10 +158,10 @@
               <div class="col-8 text-start">
                 <h3>Indah Nur Komalasari</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                  dolor voluptates eum. Ipsa, tempora saepe. Incidunt, autem?
-                  Veritatis dolor nisi eum, repudiandae omnis asperiores.
-                  Aperiam et excepturi laudantium illum iusto.
+                  yang dikenal dengan kebaikannya dan semangatnya dalam
+                  menjalani kehidupan. Indah adalah sosok yang ceria dan penuh
+                  semangat, siap menghadapi segala tantangan yang ada di
+                  depannya.
                 </p>
                 <p>
                   Putri dari Bpk. Nisar <br />
@@ -275,10 +275,10 @@
                   </div>
                   <div class="timeline-body">
                     <p>
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Qui vero nemo maiores pariatur nulla debitis aut, porro
-                      dolorem cupiditate nostrum dolore ullam error excepturi
-                      neque deserunt laborum doloribus explicabo numquam.
+                      Ketika pertama kali bertemu, dunia berhenti berputar.
+                      Percakapan yang mengalir dengan mudah dan senyuman yang
+                      tak bisa kami tahan memulai perjalanan kisah cinta kami
+                      yang penuh kenangan indah.
                     </p>
                   </div>
                 </div>
@@ -295,9 +295,10 @@
                   </div>
                   <div class="timeline-body">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Dignissimos, illo repellat officiis beatae perspiciatis
-                      ipsum mollitia est necessitatibus!
+                      Mulai serius adalah momen penting dalam hubungan kami,
+                      menandai komitmen untuk bersama dan mengatasi rintangan
+                      demi masa depan yang cerah bersama. Kami siap untuk
+                      melangkah lebih jauh dalam kisah cinta kami.
                     </p>
                   </div>
                 </div>
@@ -314,9 +315,10 @@
                   </div>
                   <div class="timeline-body">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Architecto velit nesciunt aperiam odit obcaecati ea omnis
-                      porro, numquam repellendus molestiae!
+                      Pertunangan kami adalah momen istimewa yang menandai
+                      komitmen lebih dalam. Momen ini adalah simbol tekad kami
+                      untuk membangun masa depan cerah sebagai pasangan yang
+                      selalu saling mendukung.
                     </p>
                   </div>
                 </div>
@@ -334,10 +336,7 @@
           <div class="col-md-8 col-10 text-center">
             <span>Memori Kisah Kami</span>
             <h2>Galeri Foto</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla,
-              placeat?
-            </p>
+            <p>Kumpulan kenangan indah kami terpatri dalam galeri foto ini.</p>
           </div>
         </div>
         <!-- Image -->
@@ -477,6 +476,8 @@
             <p>Isi form dibawah ini untuk melakukan konfirmasi kehadiran.</p>
           </div>
         </div>
+        <!-- Alert -->
+        <div id="alert-container"></div>
         <form
           class="row row-cols-md-auto g-3 align-items-center justify-content-center"
           method="POST"
@@ -563,23 +564,6 @@
       });
     </script>
 
-    <!-- Disable screenshoot -->
-    <script>
-      // Menonaktifkan tangkapan layar saat tombol Print Screen (PrtSc) ditekan
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "PrintScreen") {
-          e.preventDefault();
-          alert("Tombol Print Screen dinonaktifkan pada halaman ini.");
-        }
-      });
-
-      // Menonaktifkan menu konteks saat klik kanan
-      document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
-        alert("Klik kanan dinonaktifkan pada halaman ini.");
-      });
-    </script>
-
     <!-- Disable scroll untuk pertama kali buka -->
     <script>
       const rootElement = document.documentElement;
@@ -620,16 +604,34 @@
     <script>
       window.addEventListener("load", function () {
         const form = document.getElementById("my-form");
+        const alertContainer = document.getElementById("alert-container");
+
         form.addEventListener("submit", function (e) {
           e.preventDefault();
           const data = new FormData(form);
           const action = e.target.action;
+
           fetch(action, {
             method: "POST",
             body: data,
-          }).then(() => {
-            alert("Konfirmasi kehadiran berhasil dikirim!");
-          });
+          })
+            .then(() => {
+              const alert = document.createElement("div");
+              alert.classList.add("alert", "alert-success");
+              alert.innerHTML = "Konfirmasi kehadiran berhasil dikirim!";
+              alertContainer.appendChild(alert);
+
+              // Atur timeout untuk menghilangkan pesan alert setelah beberapa detik
+              setTimeout(function () {
+                alertContainer.removeChild(alert);
+              }, 5000);
+            })
+            .catch((error) => {
+              const alert = document.createElement("div");
+              alert.classList.add("alert", "alert-danger");
+              alert.innerHTML = "Terjadi kesalahan: " + error.message;
+              alertContainer.appendChild(alert);
+            });
         });
       });
     </script>
