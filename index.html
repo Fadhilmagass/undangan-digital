@@ -469,6 +469,57 @@
     </section>
 
     <!-- Reservation -->
+    <section id="rsvp" class="rsvp">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-10 text-center">
+            <h2>Konfirmasi Kehadiran</h2>
+            <p>Isi form dibawah ini untuk melakukan konfirmasi kehadiran.</p>
+          </div>
+        </div>
+        <form
+          class="row row-cols-md-auto g-3 align-items-center justify-content-center"
+          method="POST"
+          action="https://script.google.com/macros/s/AKfycbwLAkyxbHzQG8JbKVdWvAnA0a4x233Zue5UI50RDJKylF7vrvpClsaIJlJN04AoPW1Z/exec"
+          id="my-form"
+        >
+          <div class="col-12">
+            <div class="mb-3">
+              <label for="nama" class="form-label">Nama</label>
+              <input type="text" name="nama" id="nama" class="form-control" />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mb-3">
+              <label for="jumlah" class="form-label">Jumlah</label>
+              <input
+                type="number"
+                name="jumlah"
+                id="jumlah"
+                class="form-control"
+                min="1"
+                max="5"
+                length="1"
+                value="1"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mb-3">
+              <label for="status" class="form-label">Konfirmasi</label>
+              <select name="status" id="status" class="form-select">
+                <option selected>Pilih salah satu</option>
+                <option value="Hadir">Hadir</option>
+                <option value="Tidak Hadir">Tidak Hadir</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12" style="margin-top: 36px">
+            <button class="btn btn-primary">Kirim</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
     <!-- Script -->
     <!-- Bootstrap script -->
@@ -514,46 +565,73 @@
 
     <!-- Disable screenshoot -->
     <script>
+      // Menonaktifkan tangkapan layar saat tombol Print Screen (PrtSc) ditekan
       document.addEventListener("keydown", function (e) {
-        // Matikan tangkapan layar saat tombol Print Screen (PrtSc) ditekan
         if (e.key === "PrintScreen") {
           e.preventDefault();
           alert("Tombol Print Screen dinonaktifkan pada halaman ini.");
         }
       });
 
+      // Menonaktifkan menu konteks saat klik kanan
       document.addEventListener("contextmenu", function (e) {
-        // Matikan konteks menu saat klik kanan
         e.preventDefault();
-        alert("Hayooooo mau ngapain?");
+        alert("Klik kanan dinonaktifkan pada halaman ini.");
       });
     </script>
 
     <!-- Disable scroll untuk pertama kali buka -->
     <script>
-      const rootElement = document.querySelector(":root");
+      const rootElement = document.documentElement;
+      let isScrollDisabled = false;
+
       function disableScroll() {
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        if (!isScrollDisabled) {
+          const scrollTop = window.pageYOffset || rootElement.scrollTop;
+          const scrollLeft = window.pageXOffset || rootElement.scrollLeft;
 
-        window.onscroll = function () {
-          window.scrollTo(scrollTop, scrollLeft);
-        };
+          window.addEventListener("scroll", preventScroll);
+          rootElement.style.scrollBehavior = "auto";
 
-        rootElement.style.scrollBehavior = "auto";
+          isScrollDisabled = true;
+        }
       }
 
       function enableScroll() {
-        window.onscroll = function () {};
-        rootElement.style.scrollBehavior = "smooth";
-        localStorage.setItem("opened", "true");
+        if (isScrollDisabled) {
+          window.removeEventListener("scroll", preventScroll);
+          rootElement.style.scrollBehavior = "smooth";
+          localStorage.setItem("opened", "true");
+
+          isScrollDisabled = false;
+        }
+      }
+
+      function preventScroll() {
+        window.scrollTo(0, 0);
       }
 
       if (!localStorage.getItem("opened")) {
         disableScroll();
       }
+    </script>
 
-      disableScroll();
+    <!-- Form issue -->
+    <script>
+      window.addEventListener("load", function () {
+        const form = document.getElementById("my-form");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const data = new FormData(form);
+          const action = e.target.action;
+          fetch(action, {
+            method: "POST",
+            body: data,
+          }).then(() => {
+            alert("Konfirmasi kehadiran berhasil dikirim!");
+          });
+        });
+      });
     </script>
   </body>
 </html>
