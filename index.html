@@ -600,6 +600,17 @@
       </div>
     </footer>
 
+    <!-- Audio -->
+    <div id="audio-container">
+      <audio id="song" autoplay loop>
+        <source src="audio/she - elvis.mp3" />
+      </audio>
+
+      <div class="audio-icon-wrapper" style="display: none">
+        <i class="bi bi-disc"></i>
+      </div>
+    </div>
+
     <!-- SCRIPT -->
     <!-- Bootstrap script -->
     <script
@@ -642,40 +653,57 @@
       });
     </script>
 
-    <!-- Disable scroll untuk pertama kali buka -->
+    <!-- Disable scroll & Play Audio -->
     <script>
-      const rootElement = document.documentElement;
-      let isScrollDisabled = false;
+      const rootElement = document.querySelector(":root");
+      const audioIconWrapper = document.querySelector(".audio-icon-wrapper");
+      const audioIcon = document.querySelector(".audio-icon-wrapper i");
+      const song = document.querySelector("#song");
+      let isPlaying = false;
 
       function disableScroll() {
-        if (!isScrollDisabled) {
-          const scrollTop = window.pageYOffset || rootElement.scrollTop;
-          const scrollLeft = window.pageXOffset || rootElement.scrollLeft;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
-          window.addEventListener("scroll", preventScroll);
-          rootElement.style.scrollBehavior = "auto";
+        window.onscroll = function () {
+          window.scrollTo(scrollTop, scrollLeft);
+        };
 
-          isScrollDisabled = true;
-        }
+        rootElement.style.scrollBehavior = "auto";
       }
 
       function enableScroll() {
-        if (isScrollDisabled) {
-          window.removeEventListener("scroll", preventScroll);
-          rootElement.style.scrollBehavior = "smooth";
-          localStorage.setItem("opened", "true");
+        window.onscroll = function () {};
+        rootElement.style.scrollBehavior = "smooth";
+        // localStorage.setItem('opened', 'true');
+        playAudio();
+      }
 
-          isScrollDisabled = false;
+      function playAudio() {
+        song.volume = 0.1;
+        audioIconWrapper.style.display = "flex";
+        song.play();
+        isPlaying = true;
+      }
+
+      audioIconWrapper.onclick = function () {
+        if (isPlaying) {
+          song.pause();
+          audioIcon.classList.remove("bi-disc");
+          audioIcon.classList.add("bi-pause-circle");
+        } else {
+          song.play();
+          audioIcon.classList.add("bi-disc");
+          audioIcon.classList.remove("bi-pause-circle");
         }
-      }
 
-      function preventScroll() {
-        window.scrollTo(0, 0);
-      }
+        isPlaying = !isPlaying;
+      };
 
-      if (!localStorage.getItem("opened")) {
-        disableScroll();
-      }
+      // if (!localStorage.getItem('opened')) {
+      //   disableScroll();
+      // }
+      disableScroll();
     </script>
 
     <!-- Form issue -->
