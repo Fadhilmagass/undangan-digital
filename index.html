@@ -668,135 +668,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>
 
     <!-- simplyCountdown script -->
-    <script>
-      simplyCountdown(".simply-countdown", {
-        year: 2025, // required
-        month: 5, // required
-        day: 4, // required
-        hours: 8, // Default is 0 [0-23] integer
-        words: {
-          //words displayed into the countdown
-          days: { singular: "hari", plural: "hari" },
-          hours: { singular: "jam", plural: "jam" },
-          minutes: { singular: "menit", plural: "menit" },
-          seconds: { singular: "detik", plural: "detik" },
-        },
-      });
-    </script>
+    <script src="/js/simplyCountdown.js"></script>
 
     <!-- Offcanvas Fixed -->
-    <script>
-      const offCanvas = document.querySelector(".offcanvas");
-      const stickyTop = document.querySelector(".sticky-top");
-
-      offCanvas.addEventListener("show.bs.offcanvas", function () {
-        stickyTop.style.overflow = "visible";
-      });
-
-      offCanvas.addEventListener("hidden.bs.offcanvas", function () {
-        stickyTop.style.overflow = "hidden";
-      });
-    </script>
+    <script src="/js/fixOffCanvas.js"></script>
 
     <!-- Disable scroll & Play Audio -->
-    <script>
-      const rootElement = document.querySelector(":root");
-      const audioIconWrapper = document.querySelector(".audio-icon-wrapper");
-      const audioIcon = document.querySelector(".audio-icon-wrapper i");
-      const song = document.querySelector("#song");
-      let isPlaying = false;
-
-      function disableScroll() {
-        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-
-        window.onscroll = function () {
-          window.scrollTo(scrollTop, scrollLeft);
-        };
-
-        rootElement.style.scrollBehavior = "auto";
-      }
-
-      function enableScroll() {
-        window.onscroll = function () {};
-        rootElement.style.scrollBehavior = "smooth";
-        // localStorage.setItem('opened', 'true');
-        playAudio();
-      }
-
-      function playAudio() {
-        song.volume = 0.1;
-        audioIconWrapper.style.display = "flex";
-        song.play();
-        isPlaying = true;
-      }
-
-      audioIconWrapper.onclick = function () {
-        if (isPlaying) {
-          song.pause();
-          audioIcon.classList.remove("bi-disc");
-          audioIcon.classList.add("bi-pause-circle");
-        } else {
-          song.play();
-          audioIcon.classList.add("bi-disc");
-          audioIcon.classList.remove("bi-pause-circle");
-        }
-
-        isPlaying = !isPlaying;
-      };
-
-      // if (!localStorage.getItem('opened')) {
-      //   disableScroll();
-      // }
-      disableScroll();
-    </script>
+    <script src="/js/scrollAndAudio.js"></script>
 
     <!-- Form issue -->
-    <script>
-      window.addEventListener("load", function () {
-        const form = document.getElementById("my-form");
-        const alertContainer = document.getElementById("alert-container");
-
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const data = new FormData(form);
-          const action = e.target.action;
-
-          fetch(action, {
-            method: "POST",
-            body: data,
-          })
-            .then(() => {
-              const alert = document.createElement("div");
-              alert.classList.add("alert", "alert-success");
-              alert.innerHTML = "Konfirmasi kehadiran berhasil dikirim!";
-              alertContainer.appendChild(alert);
-
-              // Atur timeout untuk menghilangkan pesan alert setelah beberapa detik
-              setTimeout(function () {
-                alertContainer.removeChild(alert);
-              }, 5000);
-            })
-            .catch((error) => {
-              const alert = document.createElement("div");
-              alert.classList.add("alert", "alert-danger");
-              alert.innerHTML = "Terjadi kesalahan: " + error.message;
-              alertContainer.appendChild(alert);
-            });
-        });
-      });
-    </script>
+    <script src="/js/form.js"></script>
 
     <!-- Query URL untuk nama undangan -->
-    <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const nama = urlParams.get("n") || "";
-      const pronounce = urlParams.get("p") || "Bapak/Ibu/Saudara/i";
-
-      const namaContainer = document.querySelector(".hero h4 span");
-      namaContainer.innerText = `${pronounce} ${nama},`.replace(/ ,$/, ",");
-
-      document.querySelector("#nama").value = nama;
-    </script>
+    <script src="/js/urlParam.js"></script>
   </body>
 </html>
