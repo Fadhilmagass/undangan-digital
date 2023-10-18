@@ -29,7 +29,8 @@ This repository contains the HTML code for the wedding website of Fadhil and Ind
 
 8. **Footer**: Copyright information and links to the couple's social media profiles.
 
-9. **Audio**: An audio player with a song for the website.## Dependencies
+9. **Audio**: An audio player with a song for the website.
+## Dependencies
 
 - Bootstrap CSS and JavaScript for styling and interactive components.
 - Bootstrap Icons for icons used in the website.
