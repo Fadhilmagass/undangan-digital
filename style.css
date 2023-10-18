@@ -405,7 +405,7 @@ footer li {
 /* XL */
 @media (max-width: 1200px) {
   .home .heart {
-    transform: translateX(-50%) translateY(45px);
+    transform: translate(-50%, 45px);
   }
 }
 
@@ -416,8 +416,7 @@ footer li {
   }
 
   .simply-countdown > .simply-section {
-    padding: 70px;
-    margin: 5px;
+    padding: 70px 5px;
   }
 
   .home .heart {
@@ -435,7 +434,7 @@ footer li {
   }
 
   .timeline li .timeline-panel {
-    width: calc((100% - 200px));
+    width: calc(100% - 200px);
     float: right;
   }
 
@@ -461,8 +460,7 @@ footer li {
   }
 
   .simply-countdown > .simply-section {
-    padding: 60px;
-    margin: 5px;
+    padding: 60px 5px;
   }
 
   .mynavbar .nav-link {
@@ -487,8 +485,7 @@ footer li {
   }
 
   .simply-countdown > .simply-section {
-    padding: 45px;
-    margin: 3px;
+    padding: 45px 3px;
   }
 
   .timeline li .timeline-image {
